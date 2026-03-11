@@ -20,6 +20,7 @@ import {
   Users,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { suburbs } from "../data/suburbs";
 
 const services = [
   {
@@ -220,7 +221,7 @@ export default function HomePage() {
               <a href="#contact-cta" data-ocid="hero.primary_button">
                 <Button
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90 font-semibold shadow-hero"
+                  className="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold shadow-lg"
                 >
                   Get a Free Quote <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -434,6 +435,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Suburbs We Serve */}
+      <section className="py-16 bg-white" id="suburbs">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-display font-bold mb-3">
+              End of Lease Cleaning Across Adelaide Suburbs
+            </h2>
+            <p className="text-foreground/60 max-w-2xl mx-auto">
+              We serve every corner of Adelaide. Click your suburb to find out
+              exactly how we help renters there get their full bond back.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {suburbs.map((suburb, i) => (
+              <motion.div
+                key={suburb.slug}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: i * 0.05 }}
+                data-ocid={`suburbs.item.${i + 1}`}
+              >
+                <Link
+                  to={`/end-of-lease-cleaning-${suburb.slug}` as never}
+                  data-ocid="suburbs.link"
+                >
+                  <Card className="h-full hover:shadow-card hover:border-primary transition-all cursor-pointer group border-border">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mt-0.5">
+                          <MapPin className="w-4 h-4 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors leading-snug">
+                            End of Lease Cleaning {suburb.name}
+                          </h3>
+                          <p className="text-xs text-foreground/50 mt-0.5">
+                            SA {suburb.postcode}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="section-gradient py-16" id="faq">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -485,7 +536,7 @@ export default function HomePage() {
             <Link to="/contact" data-ocid="cta.primary_button">
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-semibold"
+                className="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold shadow-lg"
               >
                 Book Online Now
               </Button>
